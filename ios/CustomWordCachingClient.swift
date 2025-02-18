@@ -28,6 +28,7 @@ extension Notification.Name {
 class CustomWordCachingClient: LocalCachingClient {
   private var db: FMDatabaseQueue!
   private var dateFormatter: DateFormatter
+  private var user: TKMUser?
 
   @Cached(notificationName: .cwccAvailableItemsChanged) var availableCWSubjects: (lessonCount: Int,
                                                                                   reviewComposition: [
@@ -40,9 +41,10 @@ class CustomWordCachingClient: LocalCachingClient {
   @Cached var cwRecentLessonCount: Int
   @Cached(notificationName: .lccSRSCategoryCountsChanged) var cwSrsCategoryCounts: [Int]
 
-  override init(client: WaniKaniAPIClient, reachability: Reachability) {
+  init(client: WaniKaniAPIClient, reachability: Reachability, user: TKMUser?) {
     dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    self.user = user
 
     super.init(client: client, reachability: reachability)
 
@@ -146,7 +148,7 @@ class CustomWordCachingClient: LocalCachingClient {
   }
 
   override func getUserInfo() -> TKMUser? {
-    TKMUser()
+    user
   }
 
   override func getAssignmentsAtUsersCurrentLevel() -> [TKMAssignment] {

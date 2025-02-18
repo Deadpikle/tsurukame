@@ -177,6 +177,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
     let user = services.localCachingClient.getUserInfo()
     let reviewCount = services.localCachingClient.availableReviewCount
     let upcomingReviews = services.localCachingClient.upcomingReviews
+    let customWordCache = CustomWordCachingClient(client: services.client,
+                                                  reachability: services.reachability, user: user)
+    let customReviewCount = customWordCache.availableReviewCount
+    let customUpcomingReviews = customWordCache.upcomingReviews
+
+    var allReviewData = [Int]()
+    for hour in 0 ..< upcomingReviews.count {
+      let reviews = upcomingReviews[hour]
+      allReviewData[hour] = reviews
+    }
+    for hour in 0 ..< customUpcomingReviews.count {
+      let reviews = upcomingReviews[hour]
+      allReviewData[hour] += reviews
+    }
 
     if user?.hasVacationStartedAt ?? false {
       UIApplication.shared.applicationIconBadgeNumber = 0
@@ -205,8 +219,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
         let startInterval = startDate.timeIntervalSinceNow
         var cumulativeReviews = reviewCount
         var notificationsAdded = 0
-        for hour in 0 ..< upcomingReviews.count {
-          let reviews = upcomingReviews[hour]
+        for hour in 0 ..< allReviewData.count {
+          let reviews = allReviewData[hour]
           if reviews == 0 {
             continue
           }
@@ -222,7 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
           let content = UNMutableNotificationContent()
           if settings.alertSetting == .enabled, Settings.notificationsAllReviews {
             content.body = "\(cumulativeReviews) review\(cumulativeReviews == 1 ? "" : "s") " +
-              "available (\(upcomingReviews[hour]) new)"
+              "available (\(allReviewData[hour]) new)"
           }
           if settings.badgeSetting == .enabled, Settings.notificationsBadging {
             content.badge = NSNumber(value: cumulativeReviews)
