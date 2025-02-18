@@ -394,7 +394,7 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
     }
   }
 
-  private func getAllAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
+  func getAllAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
     var ret = [TKMAssignment]()
     for cursor in db.query("SELECT pb FROM assignments") {
       ret.append(cursor.proto(forColumnIndex: 0)!)
@@ -402,7 +402,7 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
     return ret
   }
 
-  private func getAllRecentMistakeAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
+  func getAllRecentMistakeAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
     var ret = [TKMAssignment]()
     let dayAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date())!
     for cursor in db.query("SELECT a.pb " +
@@ -417,7 +417,7 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
     return ret
   }
 
-  private func getAllBurnedAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
+  func getAllBurnedAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
     var ret = [TKMAssignment]()
     for cursor in db.query("SELECT a.pb " +
       "FROM subject_progress AS p " +
@@ -429,7 +429,7 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
     return ret
   }
 
-  private func getAllRecentLessonAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
+  func getAllRecentLessonAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
     // Any item you’ve learned in lessons and haven’t Guru’d in your reviews
     // will be part of Recent Lessons mode. Once you complete your reviews
     // and the item moves to the Guru stage, this will no longer remain in Recent Lessons.
