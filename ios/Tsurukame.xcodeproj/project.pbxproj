@@ -165,6 +165,8 @@
 		63FCAE78237F75CC00DB1418 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCAE77237F75CC00DB1418 /* Style.swift */; };
 		6F5E95176B5DCA719A6EED55 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E5709643045C62AD6AC427 /* Pods_Tests.framework */; };
 		791B8B552D646559000C8142 /* CustomWordCachingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B8B542D646559000C8142 /* CustomWordCachingClient.swift */; };
+		791B8B582D64758F000C8142 /* CustomWordTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B8B572D64758F000C8142 /* CustomWordTabViewController.swift */; };
+		791B8B5A2D64CAF1000C8142 /* CreateCustomWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B8B592D64CAF1000C8142 /* CreateCustomWordViewController.swift */; };
 		79661CC22BAC117D003F8764 /* LessonPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79661CC12BAC117D003F8764 /* LessonPickerViewController.swift */; };
 		796706282B3BE71000CAF09B /* SubjectsByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796706272B3BE71000CAF09B /* SubjectsByCategoryViewController.swift */; };
 		79D887452B41949F003D8F99 /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D887442B41949F003D8F99 /* String+SHA256.swift */; };
@@ -417,6 +419,8 @@
 		68B19C946E2F2284DA18EC3F /* Pods_Tsurukame__App_Store_screenshots_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tsurukame__App_Store_screenshots_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6978F17AB58C6447CED81564 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		791B8B542D646559000C8142 /* CustomWordCachingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWordCachingClient.swift; sourceTree = "<group>"; };
+		791B8B572D64758F000C8142 /* CustomWordTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWordTabViewController.swift; sourceTree = "<group>"; };
+		791B8B592D64CAF1000C8142 /* CreateCustomWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCustomWordViewController.swift; sourceTree = "<group>"; };
 		79661CC12BAC117D003F8764 /* LessonPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickerViewController.swift; sourceTree = "<group>"; };
 		796706272B3BE71000CAF09B /* SubjectsByCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsByCategoryViewController.swift; sourceTree = "<group>"; };
 		79D887442B41949F003D8F99 /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
@@ -593,7 +597,9 @@
 				63344E7F2D291C9F002A4FED /* BuildConfigs */,
 				C90846AD237F1C770068A272 /* Complication */,
 				C90846BC237F1C790068A272 /* ComplicationExtension */,
+				791B8B592D64CAF1000C8142 /* CreateCustomWordViewController.swift */,
 				791B8B542D646559000C8142 /* CustomWordCachingClient.swift */,
+				791B8B572D64758F000C8142 /* CustomWordTabViewController.swift */,
 				63CBFF2527731B8B0086BA5F /* DownloadViewController.swift */,
 				41897D93237228F100F6A0B7 /* Extensions */,
 				6335B46E23CF0D390071671E /* fastlane */,
@@ -1407,6 +1413,7 @@
 				63A5598527E433E000E7BBCB /* NavigationController.swift in Sources */,
 				638A5C4E25A471F9001A7AEE /* AppDelegate.swift in Sources */,
 				633632EF201F3490006D582B /* Settings.swift in Sources */,
+				791B8B582D64758F000C8142 /* CustomWordTabViewController.swift in Sources */,
 				63A16775253AD8AE00B5BCD6 /* FMDatabase+Assert.swift in Sources */,
 				637CA12C25D7EDFF0082580E /* ReviewSummaryViewController.swift in Sources */,
 				639E750427E9CFB3006E36EA /* GradientView.swift in Sources */,
@@ -1423,6 +1430,7 @@
 				631CAD63234AD5FC008CEA73 /* AnswerChecker.swift in Sources */,
 				63C74C6825C96088004F6C99 /* SubjectChip.swift in Sources */,
 				63358E9E273664F50013A2AC /* BasicModelItem.swift in Sources */,
+				791B8B5A2D64CAF1000C8142 /* CreateCustomWordViewController.swift in Sources */,
 				6335B4E723CF14280071671E /* Screenshotter.swift in Sources */,
 				63CAAB091FD2C66100E09DA1 /* NSString+LevenshteinDistance.m in Sources */,
 				636A63DE238A107A00902269 /* CurrentLevelChartItem.swift in Sources */,

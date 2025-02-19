@@ -116,6 +116,17 @@ class MainWaniKaniTabViewController: UITableViewController {
       hasReviews = setTableViewCellCount(reviewsItem, count: reviews)
       model.add(reviewsItem)
 
+      let hasCustomWordClient = services.localCachingClient as? CustomWordCachingClient != nil
+      if hasCustomWordClient {
+        model.add(section: "")
+        model.add(BasicModelItem(style: .value1,
+                                 title: "Create New Lessons",
+                                 subtitle: "",
+                                 accessoryType: .disclosureIndicator) { [unowned self] in
+            self.showCreateCustomWord()
+          })
+      }
+
       model.add(section: "Upcoming reviews")
       model.add(UpcomingReviewsChartItem(upcomingReviews: upcomingReviews,
                                          currentReviewCount: reviews,
@@ -313,6 +324,10 @@ class MainWaniKaniTabViewController: UITableViewController {
       vc.setup(services: services, category: selectedSrsStageCategory,
                showAnswers: Settings.subjectCatalogueViewShowAnswers)
 
+    case .showCreateWord:
+      let vc = segue.destination as! CreateCustomWordViewController
+      vc.setup(client: services.localCachingClient as! CustomWordCachingClient)
+
     default:
       break
     }
@@ -381,5 +396,9 @@ class MainWaniKaniTabViewController: UITableViewController {
 
   @objc func startBurnedItemReviews() {
     perform(segue: StoryboardSegue.Main.startBurnedItemReviews, sender: self)
+  }
+
+  @objc func showCreateCustomWord() {
+    perform(segue: StoryboardSegue.Main.showCreateWord, sender: self)
   }
 }

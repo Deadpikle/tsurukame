@@ -26,7 +26,6 @@ extension Notification.Name {
 }
 
 class CustomWordCachingClient: LocalCachingClient {
-  private var db: FMDatabaseQueue!
   private var dateFormatter: DateFormatter
   private var user: TKMUser?
 
@@ -105,12 +104,12 @@ class CustomWordCachingClient: LocalCachingClient {
   ]
 
   private let kInitialSchemaVersion = 1
-  private let kSchemaVersion = 1
+  private let kSchemaVersion = 2
 
   private func openDatabase() {
-    db = FMDatabaseQueue(url: LocalCachingClient.databaseUrl())!
+    db = FMDatabaseQueue(url: CustomWordCachingClient.databaseUrl())!
     db.inTransaction { db, _ in
-      NSLog("Database URL: %@", LocalCachingClient.databaseUrl().absoluteString)
+      NSLog("Database URL: %@", CustomWordCachingClient.databaseUrl().absoluteString)
       // Get the current version.
       let targetVersion = kSchemaVersion
       var currentVersion = Int(db.userVersion)
@@ -152,7 +151,7 @@ class CustomWordCachingClient: LocalCachingClient {
   }
 
   override func getAssignmentsAtUsersCurrentLevel() -> [TKMAssignment] {
-    getAssignments(level: 1) // all custom words are level 1
+    getAssignments(level: 99) // all custom words are level 99
   }
 
   override func getAudioUrls(levels _: [Int], voiceActorIds _: [Int64]) -> [AudioUrl] {
@@ -217,5 +216,29 @@ class CustomWordCachingClient: LocalCachingClient {
 
   override func sync(quick _: Bool, progress _: Progress) -> PMKFinalizer {
     Promise.value(()).cauterize()
+  }
+
+  func createSubject(subject: TKMSubject) -> Int64 {
+    db.inTransaction { db in
+      // perform an upsert since we don't want to lose any existing last_mistake_time
+      // data via REPLACE INTO.
+      db
+        .mustExecuteUpdate("INSERT INTO subjects (japanese, level, type, pb) VALUES (?, ?, ?, ?) ",
+                           args: [subject.japanese, subject.level, subject.subjectType,
+                                  try! subject.serializedData()])
+      return db.lastInsertRowId
+    }
+  }
+
+  func createAssignment(assignment: TKMAssignment) -> Int64 {
+    db.inTransaction { db in
+      // perform an upsert since we don't want to lose any existing last_mistake_time
+      // data via REPLACE INTO.
+      db
+        .mustExecuteUpdate("INSERT INTO assignments (subject_id, pb) VALUES (?, ?) ",
+                           args: [assignment.subjectID,
+                                  try! assignment.serializedData()])
+      return db.lastInsertRowId
+    }
   }
 }

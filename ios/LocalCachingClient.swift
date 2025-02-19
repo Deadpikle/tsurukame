@@ -50,7 +50,7 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
   let client: WaniKaniAPIClient
   let reachability: Reachability
 
-  private var db: FMDatabaseQueue!
+  var db: FMDatabaseQueue!
   private var dateFormatter: DateFormatter
 
   @Cached(notificationName: .lccPendingItemsChanged) var pendingProgressCount: Int

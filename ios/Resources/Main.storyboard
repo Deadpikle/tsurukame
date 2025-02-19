@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ByY-Kf-IzJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ByY-Kf-IzJ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,6 +21,7 @@
                     <connections>
                         <segue destination="xs8-Ja-JLy" kind="relationship" relationship="viewControllers" id="DMm-VN-QgW"/>
                         <segue destination="Spk-nW-GEQ" kind="relationship" relationship="viewControllers" id="C2v-3N-Dfm"/>
+                        <segue destination="ZDX-MU-leG" kind="relationship" relationship="viewControllers" id="ve2-Kx-ZVG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LFf-1c-bD9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -56,7 +57,40 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kbL-0E-6LB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1145" y="-1081"/>
+            <point key="canvasLocation" x="-1215" y="-1492"/>
+        </scene>
+        <!--My Words-->
+        <scene sceneID="G7p-lM-sT3">
+            <objects>
+                <tableViewController id="ZDX-MU-leG" customClass="CustomWordTabViewController" customModule="Tsurukame" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="t5p-oK-8Ns">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="609"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ZDX-MU-leG" id="cDO-Ir-MTJ"/>
+                            <outlet property="delegate" destination="ZDX-MU-leG" id="kgG-P9-A0s"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="My Words" image="wanikani" selectedImage="wanikani" id="K7Y-m4-6xz"/>
+                    <connections>
+                        <segue destination="Qs4-9j-s1J" kind="show" identifier="showRemaining" id="KGS-m2-XiG"/>
+                        <segue destination="mNH-9F-QWo" kind="show" identifier="startLessons" id="UFy-Yz-pKe"/>
+                        <segue destination="VqN-Fx-mI6" kind="show" identifier="showLessonPicker" id="5Oc-8L-fpN"/>
+                        <segue destination="lvd-2l-9te" kind="show" identifier="viewItemsInSrsCategory" id="Y3w-VP-KML"/>
+                        <segue destination="MHj-tV-Wy7" kind="show" identifier="showAll" id="rFh-C9-PUc"/>
+                        <segue destination="Qs4-9j-s1J" kind="show" identifier="showRemaining" id="TL6-Ap-SFH"/>
+                        <segue destination="pw5-ds-CeL" kind="show" identifier="tableForecast" id="AAD-Zd-yJH"/>
+                        <segue destination="pOc-Ig-wgQ" kind="show" identifier="startRecentLessonReviews" id="bS3-CU-3dc"/>
+                        <segue destination="pOc-Ig-wgQ" kind="show" identifier="startBurnedItemReviews" id="EuO-yb-0Mm"/>
+                        <segue destination="pOc-Ig-wgQ" kind="show" identifier="startRecentMistakeReviews" id="gCQ-2F-GkU"/>
+                        <segue destination="pOc-Ig-wgQ" kind="show" identifier="startReviews" id="taW-Nq-pjy"/>
+                        <segue destination="dTf-j1-hKQ" kind="show" identifier="showCreateWord" id="xSd-vY-6J9"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dal-xR-bEd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1297" y="-663"/>
         </scene>
         <!--Practice-->
         <scene sceneID="d6R-Gk-GXK">
@@ -78,7 +112,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yp5-JX-YtJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1172" y="-419"/>
+            <point key="canvasLocation" x="-1214" y="18"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="ydl-qq-SrR">
@@ -192,7 +226,26 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mNp-nc-5rI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-409" y="-820"/>
+            <point key="canvasLocation" x="-145" y="-733"/>
+        </scene>
+        <!--Create Word-->
+        <scene sceneID="mkf-XV-fx1">
+            <objects>
+                <tableViewController title="Create Word" id="dTf-j1-hKQ" customClass="CreateCustomWordViewController" customModule="Tsurukame" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="i49-jD-fgN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="589"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="dTf-j1-hKQ" id="Ecv-N7-yDT"/>
+                            <outlet property="delegate" destination="dTf-j1-hKQ" id="40D-4a-EFn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="KEs-FO-5po"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d9l-Qe-WSv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-7" y="-320"/>
         </scene>
         <!--SubjectsByCategory-->
         <scene sceneID="n7M-yI-UPs">
@@ -202,7 +255,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NbY-WF-HHV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-415" y="-1043"/>
+            <point key="canvasLocation" x="-201" y="-1031"/>
         </scene>
         <!--Lessons-->
         <scene sceneID="z1E-IC-jbQ">
@@ -212,7 +265,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9LG-MC-TeT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-472" y="-1230"/>
+            <point key="canvasLocation" x="-384" y="-1312"/>
         </scene>
         <!--SubjectsRemaining-->
         <scene sceneID="kfs-vn-0Rb">
@@ -222,7 +275,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IjS-jp-gV8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-420" y="-948"/>
+            <point key="canvasLocation" x="-145" y="-856"/>
         </scene>
         <!--SubjectCatalogue-->
         <scene sceneID="cQS-Qo-ms0">
@@ -232,7 +285,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XvO-ji-lJR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-429" y="-995"/>
+            <point key="canvasLocation" x="-138" y="-948"/>
         </scene>
         <!--UpcomingReviews-->
         <scene sceneID="h2m-R6-kxV">
@@ -242,7 +295,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="olz-go-JVn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-425" y="-1107"/>
+            <point key="canvasLocation" x="-255" y="-1149"/>
         </scene>
         <!--LessonPicker-->
         <scene sceneID="oVj-v8-v8a">
@@ -252,11 +305,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAj-ZT-6TK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-449" y="-1186"/>
+            <point key="canvasLocation" x="-311" y="-1253"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="AxF-9f-jjW"/>
+        <segue reference="5Oc-8L-fpN"/>
+        <segue reference="AAD-Zd-yJH"/>
+        <segue reference="rFh-C9-PUc"/>
+        <segue reference="TL6-Ap-SFH"/>
+        <segue reference="UFy-Yz-pKe"/>
+        <segue reference="Y3w-VP-KML"/>
+        <segue reference="taW-Nq-pjy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ic_search_white" width="24" height="24"/>

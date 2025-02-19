@@ -23,6 +23,7 @@ internal enum StoryboardSegue {
     case katakanaCharacterPractice
     case settings
     case showAll
+    case showCreateWord
     case showLessonPicker
     case showRemaining
     case startBurnedItemReviews

@@ -175,11 +175,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
     }
 
     let user = services.localCachingClient.getUserInfo()
-    let reviewCount = services.localCachingClient.availableReviewCount
     let upcomingReviews = services.localCachingClient.upcomingReviews
     let customWordCache = CustomWordCachingClient(client: services.client,
                                                   reachability: services.reachability, user: user)
-    let customReviewCount = customWordCache.availableReviewCount
+    let reviewCount = services.localCachingClient.availableReviewCount + customWordCache
+      .availableReviewCount
     let customUpcomingReviews = customWordCache.upcomingReviews
 
     var allReviewData = [Int]()

@@ -18,6 +18,7 @@ class MainTabBarViewController: UITabBarController {
   var services: TKMServices!
   weak var waniKaniTabDelegate: MainWaniKaniTabViewController.Delegate?
   weak var waniKaniViewController: MainWaniKaniTabViewController?
+  weak var customWordViewController: MainWaniKaniTabViewController?
   weak var practiceViewController: MainPracticeTabViewController?
 
   func setup(services: TKMServices, waniKaniTabDelegate: MainWaniKaniTabViewController.Delegate?) {
@@ -27,12 +28,25 @@ class MainTabBarViewController: UITabBarController {
 
   override func viewDidLoad() {
     if !FeatureFlags.showOtherPracticeModes {
-      tabBar.isHidden = true
+//      tabBar.isHidden = true // TODO: adjust
     }
 
     view.backgroundColor = .clear
     for vc in viewControllers! {
       switch vc {
+      case let vc as CustomWordTabViewController:
+        // setup new services object for custom words
+        let customWordServices = TKMServices()
+        customWordServices.localCachingClient = CustomWordCachingClient(client: services.client,
+                                                                        reachability: services
+                                                                          .reachability,
+                                                                        user: services
+                                                                          .localCachingClient
+                                                                          .getUserInfo()!)
+        customWordServices.client = services.client
+        vc.setup(services: customWordServices, delegate: waniKaniTabDelegate)
+        customWordViewController = vc
+
       case let vc as MainWaniKaniTabViewController:
         vc.setup(services: services, delegate: waniKaniTabDelegate)
         waniKaniViewController = vc
@@ -49,6 +63,7 @@ class MainTabBarViewController: UITabBarController {
 
   func update() {
     waniKaniViewController?.update()
+    customWordViewController?.update()
     practiceViewController?.update()
   }
 }
