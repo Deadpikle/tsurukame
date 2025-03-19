@@ -341,10 +341,12 @@ public class WaniKaniAPIClient: NSObject {
           continue
         }
         seenIds.insert(id)
-
         if let objectType = data.object,
-           let subject = data.data.toProto(id: id) {
-          ret.append(subject)
+           let date = WaniKaniDate(fromString: data
+             .data_updated_at ?? "2000-01-01T01:01:01.383645Z"),
+           let reviewStat = data.data.toProto(id: id,
+                                              updatedAt: date) {
+          ret.append(reviewStat)
         }
       }
       return (stats: ret, updatedAt: allData.data_updated_at ?? updatedAfter)
@@ -944,11 +946,12 @@ private struct ReviewStatisticData: Codable {
   var reading_current_streak: Int
   var percentage_correct: Int
 
-  func toProto(id: Int64?) -> TKMReviewStatistic? {
+  func toProto(id: Int64?, updatedAt: WaniKaniDate) -> TKMReviewStatistic? {
     var ret = TKMReviewStatistic()
     ret.id = id ?? 0
     ret.subjectID = Int64(subject_id)
     toProtoDate(created_at) { ret.createdAt = $0 }
+    toProtoDate(updatedAt) { ret.dataUpdatedAt = $0 }
     ret.meaningCorrect = Int32(meaning_correct)
     ret.meaningIncorrect = Int32(meaning_incorrect)
     ret.meaningMaxStreak = Int32(meaning_max_streak)

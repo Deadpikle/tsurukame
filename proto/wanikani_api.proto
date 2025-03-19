@@ -288,4 +288,5 @@ message ReviewStatistic {
   optional int32 reading_current_streak = 12;
   optional int32 percentage_correct = 13;
   optional bool hidden = 14;
+  optional int32 data_updated_at = 15;
 }

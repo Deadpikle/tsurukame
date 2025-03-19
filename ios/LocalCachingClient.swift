@@ -321,10 +321,14 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
     );
     CREATE INDEX idx_stat_subject_id ON review_stats (subject_id);
     """,
+    // Version 13. Force resync of review_stats due to using updated_at param
+    """
+    UPDATE sync SET review_stats_updated_after = \"\";
+    """,
   ]
 
   private let kInitialSchemaVersion = 8
-  private let kSchemaVersion = 12
+  private let kSchemaVersion = 13
 
   // Run when the user logs out. Clears everything in the database.
   private let kClearAllData = """
@@ -457,13 +461,18 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
   private func getAllRecentMistakeAssignments(transaction db: FMDatabase) -> [TKMAssignment] {
     var ret = [TKMAssignment]()
     let dayAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date())!
-    for cursor in db.query("SELECT a.pb " +
-      "FROM subject_progress AS p " +
-      "LEFT JOIN assignments AS a " +
-      "ON p.id = a.subject_id " +
-      "WHERE last_mistake_time >= \"\(dateFormatter.string(from: dayAgo))\"") {
-      if let pb: TKMAssignment = cursor.proto(forColumnIndex: 0) {
-        ret.append(pb)
+    let dayAgoInterval = dayAgo.timeIntervalSince1970
+    for cursor in db.query("SELECT a.pb, rs.pb " +
+      "FROM assignments AS a " +
+      "JOIN review_stats AS rs " +
+      "ON a.subject_id = rs.subject_id") {
+      if let reviewStatPb: TKMReviewStatistic = cursor.proto(forColumnIndex: 1),
+         let pb: TKMAssignment = cursor.proto(forColumnIndex: 0) {
+        if reviewStatPb.dataUpdatedAt >= Int64(dayAgoInterval) &&
+          (reviewStatPb.meaningIncorrect > 0 && reviewStatPb.meaningCurrentStreak == 1 ||
+            reviewStatPb.readingIncorrect > 0 && reviewStatPb.readingCurrentStreak == 1) {
+          ret.append(pb)
+        }
       }
     }
     return ret
@@ -799,14 +808,8 @@ class LocalCachingClient: NSObject, SubjectLevelGetter {
   }
 
   func getRecentMistakesCount() -> Int {
-    let dayAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date())!
-    return db.inDatabase { db in
-      let cursor = db.query("SELECT COUNT(*) FROM subject_progress " +
-        "WHERE srs_stage >= \(SRSStage.apprentice1.rawValue) AND last_mistake_time >= \"\(dateFormatter.string(from: dayAgo))\"")
-      if cursor.next() {
-        return Int(cursor.int(forColumnIndex: 0))
-      }
-      return 0
+    db.inDatabase { db in
+      self.getAllRecentMistakeAssignments(transaction: db).count
     }
   }
 

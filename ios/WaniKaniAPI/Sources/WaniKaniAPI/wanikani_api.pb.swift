@@ -1508,6 +1508,15 @@ public struct TKMReviewStatistic: Sendable {
   /// Clears the value of `hidden`. Subsequent reads from it will return its default value.
   public mutating func clearHidden() {self._hidden = nil}
 
+  public var dataUpdatedAt: Int32 {
+    get {return _dataUpdatedAt ?? 0}
+    set {_dataUpdatedAt = newValue}
+  }
+  /// Returns true if `dataUpdatedAt` has been explicitly set.
+  public var hasDataUpdatedAt: Bool {return self._dataUpdatedAt != nil}
+  /// Clears the value of `dataUpdatedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDataUpdatedAt() {self._dataUpdatedAt = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum TypeEnum: SwiftProtobuf.Enum, Swift.CaseIterable {
@@ -1568,6 +1577,7 @@ public struct TKMReviewStatistic: Sendable {
   fileprivate var _readingCurrentStreak: Int32? = nil
   fileprivate var _percentageCorrect: Int32? = nil
   fileprivate var _hidden: Bool? = nil
+  fileprivate var _dataUpdatedAt: Int32? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -2831,6 +2841,7 @@ extension TKMReviewStatistic: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     12: .standard(proto: "reading_current_streak"),
     13: .standard(proto: "percentage_correct"),
     14: .same(proto: "hidden"),
+    15: .standard(proto: "data_updated_at"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2853,6 +2864,7 @@ extension TKMReviewStatistic: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       case 12: try { try decoder.decodeSingularInt32Field(value: &self._readingCurrentStreak) }()
       case 13: try { try decoder.decodeSingularInt32Field(value: &self._percentageCorrect) }()
       case 14: try { try decoder.decodeSingularBoolField(value: &self._hidden) }()
+      case 15: try { try decoder.decodeSingularInt32Field(value: &self._dataUpdatedAt) }()
       default: break
       }
     }
@@ -2905,6 +2917,9 @@ extension TKMReviewStatistic: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try { if let v = self._hidden {
       try visitor.visitSingularBoolField(value: v, fieldNumber: 14)
     } }()
+    try { if let v = self._dataUpdatedAt {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 15)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2923,6 +2938,7 @@ extension TKMReviewStatistic: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs._readingCurrentStreak != rhs._readingCurrentStreak {return false}
     if lhs._percentageCorrect != rhs._percentageCorrect {return false}
     if lhs._hidden != rhs._hidden {return false}
+    if lhs._dataUpdatedAt != rhs._dataUpdatedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
